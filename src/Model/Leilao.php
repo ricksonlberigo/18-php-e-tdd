@@ -1,13 +1,13 @@
 <?php
 
-namespace Alura\Leilao\Model;
+namespace Alura\PHPUnit\Model;
 
 use Alura\PHPUnit\Model\Lance;
 
 class Leilao
 {
   /** @var Lance[] */
-  private Lance $lances;
+  private array $lances;
 
   public function __construct(private string $descricao)
   {
