@@ -93,4 +93,28 @@ class AvaliadorTest extends TestCase
     // Assert - Then
     self::assertEquals(900000, $menorValor);
   }
+
+  public function testAvaliadorDeveBuscarOs3MaioresValores()
+  {
+    $leilao = new Leilao("Fiat 47 0KM");
+
+    $joao = new Usuario('João');
+    $maria = new Usuario('Maria');
+    $ana = new Usuario('Ana');
+    $daniel = new Usuario('Daniel');
+
+    $leilao->recebeLance(new Lance($ana, 1500));
+    $leilao->recebeLance(new Lance($joao, 1000));
+    $leilao->recebeLance(new Lance($maria, 2000));
+    $leilao->recebeLance(new Lance($daniel, 500));
+
+    $avaliador = new Avaliador();
+    $avaliador->avalia($leilao);
+
+    $maiores = $avaliador->getMaioresLances();
+    self::assertCount(3, $maiores);
+    static::assertEquals(2000, $maiores[0]->getValor());
+    static::assertEquals(1500, $maiores[1]->getValor());
+    static::assertEquals(1000, $maiores[2]->getValor());
+  }
 }
